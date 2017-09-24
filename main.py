@@ -22,17 +22,20 @@ rot_form = """
                 width: 540px;
                 height: 120px;
             }
+            p.error {
+                color: red;
+            }
         </style>
     </head>
     <body>
         <form action="/add" method="POST">
             <label>
                 Rotate By:
-                <input id="rot" type="text" name="rot"/>
+                <input id="rot" type="text" name="rot" value="0"/>
+                <p class="error"></p>
             </label>
-        <br />
             <label>
-                <input id="text" type="textarea" name="text"/>
+                <textarea {0} type="text" name="text"></textarea>
             </label>
         <br />
             <input type="submit" value="Submit Query"/>
@@ -49,8 +52,8 @@ def index():
 def encrpyt():
     text = request.form.get("text")
     rot = int(request.form.get("rot"))
-    rotate_string = caesar.encrypt(text,rot)
-    encrypted_message = rotate_string
-    return encrypted_message
+    encrypted = rotate_string(text,rot)
+
+    return encrypted
 
 app.run()
