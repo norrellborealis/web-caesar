@@ -9,22 +9,19 @@ rot_form = """
 <html>
     <head>
         <style>
-            form {
+            form {{
                 background-color: #eee;
                 padding: 20px;
                 margin: 0 auto;
                 width: 540px;
                 font: 16px sans-serif;
                 border-radius: 10px;
-            }
-            textarea {
+            }}
+            textarea {{
                 margin: 10px 0;
                 width: 540px;
                 height: 120px;
-            }
-            p.error {
-                color: red;
-            }
+            }}
         </style>
     </head>
     <body>
@@ -35,7 +32,7 @@ rot_form = """
                 <p class="error"></p>
             </label>
             <label>
-                <textarea {0} type="text" name="text"></textarea>
+                <textarea type="text" name="text">{0}</textarea>
             </label>
         <br />
             <input type="submit" value="Submit Query"/>
@@ -46,7 +43,7 @@ rot_form = """
 
 @app.route("/")
 def index():
-    return rot_form
+    return rot_form.format("")
 
 @app.route("/add", methods=['POST'])
 def encrpyt():
@@ -54,6 +51,6 @@ def encrpyt():
     rot = int(request.form.get("rot"))
     encrypted = rotate_string(text,rot)
 
-    return encrypted
+    return rot_form.format(encrypted)
 
 app.run()
